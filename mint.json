@@ -1,29 +1,31 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Onboarded",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/OnboardedLogoWhite.png",
+    "light": "/logo/OnboardedLogo.png",
+    "href": "https://onboarded.com"
   },
-  "favicon": "/favicon.svg",
+  "openapi": "https://staging.onboarded.com/api/v1/openapi.json",
+  "favicon": "/logo/OnboardedLogoThumbnail.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#0A2240",
+    "light": "#78B9FF",
+    "dark": "#0A2240",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#0A2240",
+      "to": "#78B9FF"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@onboarded.com"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://app.onboarded.com"
   },
   "tabs": [
     {
@@ -66,20 +68,6 @@
         "essentials/settings",
         "essentials/navigation",
         "essentials/reusable-snippets"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
       ]
     }
   ],
