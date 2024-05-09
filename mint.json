@@ -1,5 +1,4 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
   "name": "Onboarded",
   "logo": {
     "dark": "/logo/OnboardedLogoWhite.png",
@@ -27,10 +26,17 @@
     "name": "Dashboard",
     "url": "https://app.onboarded.com"
   },
+  "primaryTab": {
+    "name": "Home"
+  },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "API",
+      "url": "api-references"
+    },
+    {
+      "name": "Test",
+      "url": "/api"
     }
   ],
   "anchors": [
