@@ -1,0 +1,5651 @@
+{
+    "openapi": "3.0.2",
+    "paths": {
+      "/api/v1/employees": {
+        "get": {
+          "summary": "List all employees",
+          "tags": [
+            "Employees"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "schema": {
+                "default": 1,
+                "type": "number",
+                "minimum": 1
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "schema": {
+                "default": 20,
+                "type": "number",
+                "minimum": 1,
+                "maximum": 300
+              }
+            }
+          ],
+          "operationId": "getEmployees",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "first_name": {
+                              "type": "string"
+                            },
+                            "middle_name": {
+                              "type": "string"
+                            },
+                            "last_name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "phone": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "date_of_birth": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "social_security_number": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "has_middle_name": {
+                              "type": "boolean",
+                              "nullable": true
+                            },
+                            "address": {
+                              "type": "object",
+                              "properties": {
+                                "street": {
+                                  "type": "string"
+                                },
+                                "secondary": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "city": {
+                                  "type": "string"
+                                },
+                                "state": {
+                                  "type": "string"
+                                },
+                                "zip": {
+                                  "type": "string"
+                                },
+                                "country": {
+                                  "description": "3 letter country code",
+                                  "type": "string",
+                                  "minLength": 2,
+                                  "maxLength": 3
+                                }
+                              },
+                              "required": [
+                                "street",
+                                "city",
+                                "state",
+                                "zip",
+                                "country"
+                              ],
+                              "nullable": true
+                            },
+                            "custom_attributes": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "description": "Custom attribute value",
+                                "nullable": true
+                              },
+                              "nullable": true
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "first_name",
+                            "last_name",
+                            "created_at",
+                            "updated_at"
+                          ]
+                        }
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "total"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create an employee",
+          "tags": [
+            "Employees"
+          ],
+          "parameters": [],
+          "operationId": "createEmployee",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "middle_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "phone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "date_of_birth": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "social_security_number": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "has_middle_name": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "address": {
+                      "type": "object",
+                      "properties": {
+                        "street": {
+                          "type": "string"
+                        },
+                        "secondary": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "description": "3 letter country code",
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 3
+                        }
+                      },
+                      "required": [
+                        "street",
+                        "city",
+                        "state",
+                        "zip",
+                        "country"
+                      ],
+                      "nullable": true
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "description": "Custom attribute value",
+                        "nullable": true
+                      },
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "first_name",
+                    "last_name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "201",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "middle_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "date_of_birth": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "social_security_number": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "has_middle_name": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ],
+                        "nullable": true
+                      },
+                      "custom_attributes": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "description": "Custom attribute value",
+                          "nullable": true
+                        },
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "first_name",
+                      "last_name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "400",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/employees/{id}": {
+        "get": {
+          "summary": "Get an employee by id",
+          "tags": [
+            "Employees"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getEmployee",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "middle_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "date_of_birth": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "social_security_number": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "has_middle_name": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ],
+                        "nullable": true
+                      },
+                      "custom_attributes": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "description": "Custom attribute value",
+                          "nullable": true
+                        },
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "first_name",
+                      "last_name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Employee not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "patch": {
+          "summary": "Update an employee",
+          "tags": [
+            "Employees"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "updateEmployee",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "middle_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "phone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "date_of_birth": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Employee's date of birth in ISO-8601 format (YYYY-MM-DD)."
+                    },
+                    "social_security_number": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Employee's SSN in the format of xxx-xx-xxxx."
+                    },
+                    "has_middle_name": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "address": {
+                      "type": "object",
+                      "properties": {
+                        "street": {
+                          "type": "string"
+                        },
+                        "secondary": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "description": "3 letter country code",
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 3
+                        }
+                      },
+                      "required": [
+                        "street",
+                        "city",
+                        "state",
+                        "zip",
+                        "country"
+                      ],
+                      "nullable": true
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "description": "Custom attribute value",
+                        "nullable": true
+                      },
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "middle_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "date_of_birth": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "social_security_number": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "has_middle_name": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ],
+                        "nullable": true
+                      },
+                      "custom_attributes": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "description": "Custom attribute value",
+                          "nullable": true
+                        },
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "first_name",
+                      "last_name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "400",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Employee not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete an employee by id",
+          "tags": [
+            "Employees"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "deleteEmployee",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "first_name": {
+                        "type": "string"
+                      },
+                      "middle_name": {
+                        "type": "string"
+                      },
+                      "last_name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "date_of_birth": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "social_security_number": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "has_middle_name": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ],
+                        "nullable": true
+                      },
+                      "custom_attributes": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "description": "Custom attribute value",
+                          "nullable": true
+                        },
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "first_name",
+                      "last_name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Employee not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/employees/{id}/onboarding": {
+        "get": {
+          "summary": "Get an employee onboarding url",
+          "tags": [
+            "Employees"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "assignee_type",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "employee",
+                      "employer"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "name": "task_ids",
+              "in": "query",
+              "description": "Comma separated list of task ids",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "name": "locale",
+              "in": "query",
+              "description": "Locale code (e.g. en, es, fr)",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": "en",
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2
+                  }
+                }
+              }
+            },
+            {
+              "name": "redirect_to",
+              "in": "query",
+              "description": "Redirect to url to send the user after onboarding is complete",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "getEmployeeOnboardingUrl",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "url"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Employee not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/placements": {
+        "get": {
+          "summary": "List all placements",
+          "tags": [
+            "Placements"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "schema": {
+                "default": 1,
+                "type": "number",
+                "minimum": 1
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "schema": {
+                "default": 20,
+                "type": "number",
+                "minimum": 1,
+                "maximum": 300
+              }
+            },
+            {
+              "name": "employee_id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "employer_id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "client_id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "job_id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getPlacements",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "employee_id": {
+                              "type": "string"
+                            },
+                            "employer_id": {
+                              "type": "string"
+                            },
+                            "client_id": {
+                              "type": "string"
+                            },
+                            "job_id": {
+                              "type": "string"
+                            },
+                            "suggested_tasks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "form_id": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "form_id"
+                                ]
+                              }
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "employee_id",
+                            "suggested_tasks",
+                            "created_at"
+                          ]
+                        }
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "total"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create an placement",
+          "tags": [
+            "Placements"
+          ],
+          "parameters": [],
+          "operationId": "createPlacement",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "employee_id": {
+                      "type": "string"
+                    },
+                    "employer_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "client_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "job_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "create_tasks": {
+                      "type": "boolean",
+                      "description": "Create tasks for this placement",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "employee_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "201",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "employer_id": {
+                        "type": "string"
+                      },
+                      "client_id": {
+                        "type": "string"
+                      },
+                      "job_id": {
+                        "type": "string"
+                      },
+                      "suggested_tasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "form_id": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "form_id"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "employee_id",
+                      "suggested_tasks",
+                      "created_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "409",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Placement already exists"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/placements/preview_tasks": {
+        "post": {
+          "summary": "Get a preview of tasks",
+          "tags": [
+            "Placements"
+          ],
+          "parameters": [],
+          "operationId": "getPreviewTasks",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "employee_id": {
+                      "type": "string"
+                    },
+                    "employer_id": {
+                      "type": "string"
+                    },
+                    "client_id": {
+                      "type": "string"
+                    },
+                    "job_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "employee_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "form_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "rules": {
+                          "description": "JSON Rule Definition",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "form_id",
+                        "name"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/placements/{id}": {
+        "get": {
+          "summary": "Get a placement by id",
+          "tags": [
+            "Placements"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getPlacement",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "employer_id": {
+                        "type": "string"
+                      },
+                      "client_id": {
+                        "type": "string"
+                      },
+                      "job_id": {
+                        "type": "string"
+                      },
+                      "suggested_tasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "form_id": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "form_id"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "employee_id",
+                      "suggested_tasks",
+                      "created_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Placement not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a placement by id",
+          "tags": [
+            "Placements"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "deletePlacement",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "employer_id": {
+                        "type": "string"
+                      },
+                      "client_id": {
+                        "type": "string"
+                      },
+                      "job_id": {
+                        "type": "string"
+                      },
+                      "suggested_tasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "form_id": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "form_id"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "employee_id",
+                      "suggested_tasks",
+                      "created_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Placement not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/employers": {
+        "get": {
+          "summary": "List all employers",
+          "tags": [
+            "Employers"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 1,
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 20,
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 300
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "getEmployers",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "ein": {
+                              "type": "string"
+                            },
+                            "dba_name": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "phone": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "employee_count": {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            "entity_structure": {
+                              "type": "string",
+                              "enum": [
+                                "sole_proprietorship",
+                                "partnership",
+                                "llc",
+                                "corporation",
+                                "nonprofit",
+                                "cooperative",
+                                "professional_corporation"
+                              ],
+                              "nullable": true
+                            },
+                            "naics_code": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "address": {
+                              "type": "object",
+                              "properties": {
+                                "street": {
+                                  "type": "string"
+                                },
+                                "secondary": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "city": {
+                                  "type": "string"
+                                },
+                                "state": {
+                                  "type": "string"
+                                },
+                                "zip": {
+                                  "type": "string"
+                                },
+                                "country": {
+                                  "description": "3 letter country code",
+                                  "type": "string",
+                                  "minLength": 2,
+                                  "maxLength": 3
+                                }
+                              },
+                              "required": [
+                                "street",
+                                "city",
+                                "state",
+                                "zip",
+                                "country"
+                              ]
+                            },
+                            "custom_attributes": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "description": "Custom attribute value",
+                                "nullable": true
+                              }
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "ein",
+                            "address",
+                            "created_at",
+                            "updated_at"
+                          ]
+                        }
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "total"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create an employer",
+          "tags": [
+            "Employers"
+          ],
+          "parameters": [],
+          "operationId": "createEmployer",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "ein": {
+                      "type": "string"
+                    },
+                    "dba_name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "phone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "employee_count": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "entity_structure": {
+                      "type": "string",
+                      "enum": [
+                        "sole_proprietorship",
+                        "partnership",
+                        "llc",
+                        "corporation",
+                        "nonprofit",
+                        "cooperative",
+                        "professional_corporation"
+                      ],
+                      "nullable": true
+                    },
+                    "naics_code": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "address": {
+                      "type": "object",
+                      "properties": {
+                        "street": {
+                          "type": "string"
+                        },
+                        "secondary": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "description": "3 letter country code",
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 3
+                        }
+                      },
+                      "required": [
+                        "street",
+                        "city",
+                        "state",
+                        "zip",
+                        "country"
+                      ]
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "description": "Custom attribute value",
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "ein",
+                    "address"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "201",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "ein": {
+                        "type": "string"
+                      },
+                      "dba_name": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "employee_count": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "entity_structure": {
+                        "type": "string",
+                        "enum": [
+                          "sole_proprietorship",
+                          "partnership",
+                          "llc",
+                          "corporation",
+                          "nonprofit",
+                          "cooperative",
+                          "professional_corporation"
+                        ],
+                        "nullable": true
+                      },
+                      "naics_code": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ]
+                      },
+                      "custom_attributes": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "description": "Custom attribute value",
+                          "nullable": true
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "ein",
+                      "address",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "400",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/employers/{id}": {
+        "get": {
+          "summary": "Get an employer by id",
+          "tags": [
+            "Employers"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getEmployer",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "ein": {
+                        "type": "string"
+                      },
+                      "dba_name": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "employee_count": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "entity_structure": {
+                        "type": "string",
+                        "enum": [
+                          "sole_proprietorship",
+                          "partnership",
+                          "llc",
+                          "corporation",
+                          "nonprofit",
+                          "cooperative",
+                          "professional_corporation"
+                        ],
+                        "nullable": true
+                      },
+                      "naics_code": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ]
+                      },
+                      "custom_attributes": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "description": "Custom attribute value",
+                          "nullable": true
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "ein",
+                      "address",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Employer not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "patch": {
+          "summary": "Update an employer",
+          "tags": [
+            "Employers"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "updateEmployer",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "ein": {
+                      "type": "string"
+                    },
+                    "dba_name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "phone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "employee_count": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "entity_structure": {
+                      "type": "string",
+                      "enum": [
+                        "sole_proprietorship",
+                        "partnership",
+                        "llc",
+                        "corporation",
+                        "nonprofit",
+                        "cooperative",
+                        "professional_corporation"
+                      ],
+                      "nullable": true
+                    },
+                    "naics_code": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "address": {
+                      "type": "object",
+                      "properties": {
+                        "street": {
+                          "type": "string"
+                        },
+                        "secondary": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "description": "3 letter country code",
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 3
+                        }
+                      },
+                      "required": [
+                        "street",
+                        "city",
+                        "state",
+                        "zip",
+                        "country"
+                      ]
+                    },
+                    "custom_attributes": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "description": "Custom attribute value",
+                        "nullable": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "ein": {
+                        "type": "string"
+                      },
+                      "dba_name": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "phone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "employee_count": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "entity_structure": {
+                        "type": "string",
+                        "enum": [
+                          "sole_proprietorship",
+                          "partnership",
+                          "llc",
+                          "corporation",
+                          "nonprofit",
+                          "cooperative",
+                          "professional_corporation"
+                        ],
+                        "nullable": true
+                      },
+                      "naics_code": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ]
+                      },
+                      "custom_attributes": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "description": "Custom attribute value",
+                          "nullable": true
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "ein",
+                      "address",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Employer not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/clients": {
+        "get": {
+          "summary": "List all clients",
+          "tags": [
+            "Clients"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 1,
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 20,
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 300
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "getClients",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "created_at",
+                            "updated_at"
+                          ]
+                        }
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "total"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create a client",
+          "tags": [
+            "Clients"
+          ],
+          "parameters": [],
+          "operationId": "createClient",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "201",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/clients/{id}": {
+        "get": {
+          "summary": "Get a client by id",
+          "tags": [
+            "Clients"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getClient",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Client not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "patch": {
+          "summary": "Update a client",
+          "tags": [
+            "Clients"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "updateClient",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Client not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/jobs": {
+        "get": {
+          "summary": "List all jobs",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 1,
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 20,
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 300
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "getJobs",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "address": {
+                              "type": "object",
+                              "properties": {
+                                "street": {
+                                  "type": "string"
+                                },
+                                "secondary": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "city": {
+                                  "type": "string"
+                                },
+                                "state": {
+                                  "type": "string"
+                                },
+                                "zip": {
+                                  "type": "string"
+                                },
+                                "country": {
+                                  "description": "3 letter country code",
+                                  "type": "string",
+                                  "minLength": 2,
+                                  "maxLength": 3
+                                }
+                              },
+                              "required": [
+                                "street",
+                                "city",
+                                "state",
+                                "zip",
+                                "country"
+                              ],
+                              "nullable": true
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "created_at",
+                            "updated_at"
+                          ]
+                        }
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "total"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create a job",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [],
+          "operationId": "createJob",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "object",
+                      "properties": {
+                        "street": {
+                          "type": "string"
+                        },
+                        "secondary": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "description": "3 letter country code",
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 3
+                        }
+                      },
+                      "required": [
+                        "street",
+                        "city",
+                        "state",
+                        "zip",
+                        "country"
+                      ],
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "201",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ],
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/jobs/{id}": {
+        "get": {
+          "summary": "Get a job by id",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getJob",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ],
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Job not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "patch": {
+          "summary": "Update a job",
+          "tags": [
+            "Jobs"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "updateJob",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "object",
+                      "properties": {
+                        "street": {
+                          "type": "string"
+                        },
+                        "secondary": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "description": "3 letter country code",
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 3
+                        }
+                      },
+                      "required": [
+                        "street",
+                        "city",
+                        "state",
+                        "zip",
+                        "country"
+                      ],
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "secondary": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "description": "3 letter country code",
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 3
+                          }
+                        },
+                        "required": [
+                          "street",
+                          "city",
+                          "state",
+                          "zip",
+                          "country"
+                        ],
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Job not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/tasks": {
+        "get": {
+          "summary": "List all tasks",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 1,
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 20,
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 300
+                  }
+                }
+              }
+            },
+            {
+              "name": "employee_id",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "name": "employer_id",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "name": "client_id",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "name": "job_id",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "getTasks",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "form_id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "employee_id": {
+                              "type": "string"
+                            },
+                            "employer_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "client_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "job_id": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "expired_at": {
+                              "type": "string",
+                              "format": "date-time",
+                              "nullable": true
+                            },
+                            "due_at": {
+                              "type": "string",
+                              "format": "date-time",
+                              "nullable": true
+                            },
+                            "progress": {
+                              "type": "object",
+                              "properties": {
+                                "percent": {
+                                  "type": "number"
+                                },
+                                "numerator": {
+                                  "type": "number"
+                                },
+                                "denominator": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "percent",
+                                "numerator",
+                                "denominator"
+                              ]
+                            },
+                            "subtasks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "form_page_id": {
+                                    "type": "string"
+                                  },
+                                  "assignee_type": {
+                                    "type": "string",
+                                    "enum": [
+                                      "employee",
+                                      "employer"
+                                    ]
+                                  },
+                                  "progress": {
+                                    "type": "object",
+                                    "properties": {
+                                      "percent": {
+                                        "type": "number"
+                                      },
+                                      "numerator": {
+                                        "type": "number"
+                                      },
+                                      "denominator": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "percent",
+                                      "numerator",
+                                      "denominator"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "form_page_id",
+                                  "assignee_type",
+                                  "progress"
+                                ]
+                              }
+                            },
+                            "tags": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name"
+                                ]
+                              }
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "form_id",
+                            "name",
+                            "employee_id",
+                            "employer_id",
+                            "client_id",
+                            "job_id",
+                            "expired_at",
+                            "due_at",
+                            "progress",
+                            "subtasks",
+                            "tags",
+                            "created_at",
+                            "updated_at"
+                          ]
+                        }
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "total"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create a task",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "allow_duplicate",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "true",
+                      "false"
+                    ]
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "createTask",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "form_id": {
+                      "type": "string"
+                    },
+                    "employee_id": {
+                      "type": "string"
+                    },
+                    "employer_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "client_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "job_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "expired_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "description": "Datetime for when the task expires. If not included in the request payload, default value from the form will be used (when applicable). Set this property to `null` if you do not want this task to inherit form default expiration time."
+                    },
+                    "due_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true,
+                      "description": "Datetime for when the task is due. If not included in the request payload, default value from the form will be used (when applicable). Set this property to `null` if you do not want this task to inherit form default due time."
+                    }
+                  },
+                  "required": [
+                    "form_id",
+                    "employee_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "201",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "form_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "employer_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "job_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "expired_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                      },
+                      "due_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                      },
+                      "progress": {
+                        "type": "object",
+                        "properties": {
+                          "percent": {
+                            "type": "number"
+                          },
+                          "numerator": {
+                            "type": "number"
+                          },
+                          "denominator": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "percent",
+                          "numerator",
+                          "denominator"
+                        ]
+                      },
+                      "subtasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "form_page_id": {
+                              "type": "string"
+                            },
+                            "assignee_type": {
+                              "type": "string",
+                              "enum": [
+                                "employee",
+                                "employer"
+                              ]
+                            },
+                            "progress": {
+                              "type": "object",
+                              "properties": {
+                                "percent": {
+                                  "type": "number"
+                                },
+                                "numerator": {
+                                  "type": "number"
+                                },
+                                "denominator": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "percent",
+                                "numerator",
+                                "denominator"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "form_page_id",
+                            "assignee_type",
+                            "progress"
+                          ]
+                        }
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "form_id",
+                      "name",
+                      "employee_id",
+                      "employer_id",
+                      "client_id",
+                      "job_id",
+                      "expired_at",
+                      "due_at",
+                      "progress",
+                      "subtasks",
+                      "tags",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "400",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "409",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Duplicate task found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/tasks/{id}": {
+        "get": {
+          "summary": "Get a task",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getTask",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "form_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "employer_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "job_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "expired_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                      },
+                      "due_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                      },
+                      "progress": {
+                        "type": "object",
+                        "properties": {
+                          "percent": {
+                            "type": "number"
+                          },
+                          "numerator": {
+                            "type": "number"
+                          },
+                          "denominator": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "percent",
+                          "numerator",
+                          "denominator"
+                        ]
+                      },
+                      "subtasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "form_page_id": {
+                              "type": "string"
+                            },
+                            "assignee_type": {
+                              "type": "string",
+                              "enum": [
+                                "employee",
+                                "employer"
+                              ]
+                            },
+                            "progress": {
+                              "type": "object",
+                              "properties": {
+                                "percent": {
+                                  "type": "number"
+                                },
+                                "numerator": {
+                                  "type": "number"
+                                },
+                                "denominator": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "percent",
+                                "numerator",
+                                "denominator"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "form_page_id",
+                            "assignee_type",
+                            "progress"
+                          ]
+                        }
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "form_id",
+                      "name",
+                      "employee_id",
+                      "employer_id",
+                      "client_id",
+                      "job_id",
+                      "expired_at",
+                      "due_at",
+                      "progress",
+                      "subtasks",
+                      "tags",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Task not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a task",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "deleteTask",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "form_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "employee_id": {
+                        "type": "string"
+                      },
+                      "employer_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "client_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "job_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "expired_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                      },
+                      "due_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                      },
+                      "progress": {
+                        "type": "object",
+                        "properties": {
+                          "percent": {
+                            "type": "number"
+                          },
+                          "numerator": {
+                            "type": "number"
+                          },
+                          "denominator": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "percent",
+                          "numerator",
+                          "denominator"
+                        ]
+                      },
+                      "subtasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "form_page_id": {
+                              "type": "string"
+                            },
+                            "assignee_type": {
+                              "type": "string",
+                              "enum": [
+                                "employee",
+                                "employer"
+                              ]
+                            },
+                            "progress": {
+                              "type": "object",
+                              "properties": {
+                                "percent": {
+                                  "type": "number"
+                                },
+                                "numerator": {
+                                  "type": "number"
+                                },
+                                "denominator": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "percent",
+                                "numerator",
+                                "denominator"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "form_page_id",
+                            "assignee_type",
+                            "progress"
+                          ]
+                        }
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "form_id",
+                      "name",
+                      "employee_id",
+                      "employer_id",
+                      "client_id",
+                      "job_id",
+                      "expired_at",
+                      "due_at",
+                      "progress",
+                      "subtasks",
+                      "tags",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Task not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/tasks/{id}/fields": {
+        "get": {
+          "summary": "Get a task's fields",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getTaskFields",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "fields": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "description": "The value of the field",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "path"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "fields"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Task not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        },
+        "patch": {
+          "summary": "Update a task's fields",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "updateTaskFields",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "description": "The value of the field",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "path"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "fields"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "200"
+            },
+            "400": {
+              "description": "400",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "errors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Task not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/tasks/{id}/pdf": {
+        "get": {
+          "summary": "Get a task pdf",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getTaskPdf",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "nullable": true
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Task not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/tasks/{id}/onboarding": {
+        "get": {
+          "summary": "Get a task onboarding url",
+          "tags": [
+            "Tasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "assignee_type",
+              "in": "query",
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "enum": [
+                      "employee",
+                      "employer"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "name": "locale",
+              "in": "query",
+              "description": "Locale code (e.g. en, es, fr)",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": "en",
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2
+                  }
+                }
+              }
+            },
+            {
+              "name": "redirect_to",
+              "in": "query",
+              "description": "Redirect to url to send the user after onboarding is complete",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "geTaskOnboardingUrl",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "url"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Task not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/subtasks/{id}": {
+        "get": {
+          "summary": "Get an subtask by id",
+          "tags": [
+            "Subtasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getSubtask",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "form_page_id": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "form_page_id"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Subtask not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/subtasks/{id}/upload": {
+        "post": {
+          "summary": "Upload files for a subtask",
+          "tags": [
+            "Subtasks"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "uploadSubtaskFiles",
+          "requestBody": {
+            "description": "Body",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "files": {
+                      "type": "array",
+                      "items": {
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "required": [
+                    "files"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "200"
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Subtask not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/forms": {
+        "get": {
+          "summary": "List all forms",
+          "tags": [
+            "Forms"
+          ],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 1,
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "default": 20,
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 300
+                  }
+                }
+              }
+            }
+          ],
+          "operationId": "getForms",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "rules": {
+                              "nullable": true
+                            },
+                            "form_pages": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "position": {
+                                    "type": "number"
+                                  },
+                                  "description": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "assignee_type": {
+                                    "type": "string",
+                                    "enum": [
+                                      "employee",
+                                      "employer",
+                                      "system"
+                                    ]
+                                  },
+                                  "form_fields": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "position": {
+                                          "type": "number"
+                                        },
+                                        "type": {
+                                          "type": "string"
+                                        },
+                                        "path": {
+                                          "type": "string"
+                                        },
+                                        "rule": {
+                                          "nullable": true
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "position",
+                                        "type",
+                                        "path"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "position",
+                                  "description",
+                                  "assignee_type",
+                                  "form_fields"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "form_pages"
+                          ]
+                        }
+                      },
+                      "total": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "total"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      },
+      "/api/v1/forms/{id}": {
+        "get": {
+          "summary": "Get a form by id",
+          "tags": [
+            "Forms"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "operationId": "getForm",
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "rules": {
+                        "nullable": true
+                      },
+                      "form_pages": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "position": {
+                              "type": "number"
+                            },
+                            "description": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "assignee_type": {
+                              "type": "string",
+                              "enum": [
+                                "employee",
+                                "employer",
+                                "system"
+                              ]
+                            },
+                            "form_fields": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "position": {
+                                    "type": "number"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "path": {
+                                    "type": "string"
+                                  },
+                                  "rule": {
+                                    "nullable": true
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "position",
+                                  "type",
+                                  "path"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "position",
+                            "description",
+                            "assignee_type",
+                            "form_fields"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "form_pages"
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "401",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Not authorized"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "404",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "enum": [
+                          "Form not found"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "message"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "info": {
+      "title": "Onboarded API",
+      "version": "0.0.1",
+      "description": "\n  \nWelcome to the API for the Onboarded platform\n\n<details>\n  <summary>Webhooks</summary>\n  <div>\n\n# Webhooks\n\nWebhooks are a way to get more real-time notifications from the API. When an event happens in the system, we'll send a POST request to the URL you specify. You can configure webhooks in the Onboarded Dashboard.\n\n##### Security\n\nThe token from the Onboarded Dashboard Webhook UI is used to generate a signature for each webhook request. This signature is a hex-encoded hmac hash using webhook request body. The signature is included in the webhook request header property webhook-signature. To validate a webhook came from Onboarded and has not been tampered with, you need to use the token and the webhook payload you received to generate a sha256 digest and compare it against the value in the header. If it matches, the request is valid and has not been tampered with.\n\n##### Supported Events\n\n<table>\n<tr>\n  <td width=\"20%\">\n    <div><code>employee.created</code></div>\n    <div><code>employee.updated</code></div>\n    <div><code>employee.deleted</code></div>\n  </td>\n  <td width=\"20%\">\n    <div><code>employer.created</code></div>\n    <div><code>employer.updated</code></div>\n    <div><code>employer.deleted</code></div>\n  </td>\n  <td width=\"20%\">\n    <div><code>client.created</code></div>\n    <div><code>client.updated</code></div>\n    <div><code>client.deleted</code></div>\n  </td>\n  <td width=\"20%\">\n    <div><code>job.created</code></div>\n    <div><code>job.updated</code></div>\n    <div><code>job.deleted</code></div>\n  </td>\n  <td width=\"20%\">\n    <div><code>task.created</code></div>\n    <div><code>task.updated</code></div>\n    <div><code>task.deleted</code></div>\n  </td>\n</tr>\n</table>\n\n\n##### Example Payload\n  \n```json\n{\n  \"id\": \"event_1234\",\n  \"type\": \"task.updated\",\n  \"created_at\": \"2021-01-01T00:00:00Z\",\n  \"data\": {\n    ...serialized task...\n  }\n}\n```\n\n###### Example Headers\n\n```\n\"webhook-signature\": \"ABCDEF123456...\",\n\"webhook-version\": \"v1\",\n\"webhook-event\": \"task.updated\",\n\"webhook-id\": \"event_1234\",\n```\n\n  </div>\n</details>\n  "
+    },
+    "security": [
+      {
+        "basicAuth": []
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    },
+    "servers": [
+      {
+        "url": "https://staging.onboarded.com"
+      }
+    ]
+  }

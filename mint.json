@@ -31,12 +31,8 @@
   },
   "tabs": [
     {
-      "name": "API",
-      "url": "api-references"
-    },
-    {
-      "name": "Test",
-      "url": "/api"
+      "name": "API Reference",
+      "url": "api-reference"
     }
   ],
   "anchors": [
@@ -46,34 +42,99 @@
       "url": "https://mintlify.com/docs"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://www.onboarded.com/blog"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
         "introduction",
-        "quickstart",
-        "development"
+        "environment",
+        "quickstart"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "API Reference",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "api-reference/test"
+      ]
+    },
+    {
+      "group": "Employees",
+      "pages": [
+        "api-reference/employees/list-all-employees",
+        "api-reference/employees/create-an-employee",
+        "api-reference/employees/get-an-employee-by-id",
+        "api-reference/employees/delete-an-employee-by-id",
+        "api-reference/employees/update-an-employee",
+        "api-reference/employees/get-an-employee-onboarding-url"
+      ]
+    },
+    {
+      "group": "Placements",
+      "pages": [
+        "api-reference/placements/list-all-placements",
+        "api-reference/placements/create-an-placement",
+        "api-reference/placements/get-a-preview-of-tasks",
+        "api-reference/placements/get-a-placement-by-id",
+        "api-reference/placements/delete-a-placement-by-id"
+      ]
+    },
+    {
+      "group": "Employers",
+      "pages": [
+        "api-reference/employers/list-all-employers",
+        "api-reference/employers/create-an-employer",
+        "api-reference/employers/get-an-employer-by-id",
+        "api-reference/employers/update-an-employer"
+      ]
+    },
+    {
+      "group": "Clients",
+      "pages": [
+        "api-reference/clients/list-all-clients",
+        "api-reference/clients/create-a-client",
+        "api-reference/clients/get-a-client-by-id",
+        "api-reference/clients/update-a-client"
+      ]
+    },
+    {
+      "group": "Jobs",
+      "pages": [
+        "api-reference/jobs/list-all-jobs",
+        "api-reference/jobs/create-a-job",
+        "api-reference/jobs/get-a-job-by-id",
+        "api-reference/jobs/update-a-job"
+      ]
+    },
+    {
+      "group": "Tasks",
+      "pages": [
+        "api-reference/tasks/list-all-tasks",
+        "api-reference/tasks/create-a-task",
+        "api-reference/tasks/get-a-task",
+        "api-reference/tasks/delete-a-task",
+        "api-reference/tasks/get-a-tasks-fields",
+        "api-reference/tasks/update-a-tasks-fields",
+        "api-reference/tasks/get-a-task-pdf",
+        "api-reference/tasks/get-a-task-onboarding-url"
+      ]
+    },
+    {
+      "group": "Subtasks",
+      "pages": [
+        "api-reference/subtasks/get-an-subtask-by-id",
+        "api-reference/subtasks/upload-files-for-a-subtask"
+      ]
+    },
+    {
+      "group": "Forms",
+      "pages": [
+        "api-reference/forms/list-all-forms",
+        "api-reference/forms/get-a-form-by-id"
       ]
     }
   ],
@@ -81,5 +142,10 @@
     "x": "https://x.com/mintlify",
     "github": "https://github.com/mintlify",
     "linkedin": "https://www.linkedin.com/company/mintsearch"
+  },
+  "feedback": {
+    "suggestEdit": true,
+    "raiseIssue": true
   }
 }
+
