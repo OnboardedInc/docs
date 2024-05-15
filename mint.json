@@ -53,11 +53,7 @@
       "pages": [
         "introduction",
         "environment",
-        "quickstart",
-        {
-          "group": "Quickstart",
-          "pages": ["quickstart/overview","quickstart/create-employer"]
-        }
+        "quickstart"
       ]
     },
     {
