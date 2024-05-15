@@ -12,11 +12,159 @@ ACME Inc. is ready has decided to hire Ryan Jackson to be their first employee f
 
 <Steps>
   <Step title="Create the Employer" icon={"building-memo"} iconType={"solid"} >
-    Because this is ACME Inc.'s first employee, we need to create an `employer` object in Onboarded to create the `employee` object under. 
+    Because this is ACME Inc.'s first employee, we need to create an `employer` object in Onboarded to create the `employee` object under. You can create the `employer` at any time. An `employer` can exist without any `employees`. 
 
-    <Note>You can create the `employer` at any time, it doesn't have to be during the first hire! An `employer` can exist without any `employees`.</Note> 
+    To create the `employer` we'll use the below payload with [POST /v1/employers](/api-reference/employers/create-an-employer). 
 
-    To create the `employer` we'll use the [Employer API](/api-reference/employers). 
+    ```json 
+    {
+      "name": "ACME Inc.",
+      "ein": "123456789",
+      "phone": "123-456-7890",
+      "entity_structure": "corporation",
+      "address": {
+        "street": "123 Widget St",
+        "secondary": "Suite 123",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10000",
+        "country": "USA"
+      }
+    }
+    ```
+    The only required fields to create an employer are the `name`, `ein`, and `address`. You may also use the API to populate `custom_attributes` which must be created through the dashboard ahead of time.
 
+    You should get back a response that looks like this:
+
+    ```json
+    {
+      "id": "er_HVf2NFdLDi1Bin3LgUmZA", // The er_ will be the same, but the string will differ
+      "name": "ACME Inc.",
+      "ein": "123456789",
+      "dba_name": null,
+      "phone": "123-456-7890",
+      "employee_count": null,
+      "entity_structure": "corporation",
+      "naics_code": null,
+      "address": {
+        "street": "123 Widget St",
+        "secondary": "Suite 123",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10003",
+        "country": "USA"
+      },
+      "custom_attributes": {},
+      "created_at": "2023-11-07T05:31:56Z", // yours will be different
+      "updated_at": "2023-11-07T05:31:56Z" // yours will be different
+    }
+    ```
+    Save the `id`, you'll need it for later!
+
+  </Step>
+  <Step title="Create the Employee" icon="user" iconType="solid">
+    Now we need to create the `employee`. Similar to `employers` the `employee` object doesn't need an `employer`, `client`, or `job` to exist on the account to be created. The `employee` is associated with the account, not with any other entity until creating the `placement`, which is next up. 
+
+    To create the `employee` we'll use the below payloadd with [POST /v1/employees](/api-reference/employees/create-an-employee)
+
+    ```json
+    {
+      "first_name": "Ryan",
+      "middle_name": "Micah",
+      "last_name": "Jackson",
+      "email": "ryan@example.com", // nothing will be sent to the email provided here
+      "phone": "1234567890",
+      "date_of_birth": "1990-01-01",
+      "social_security_number": "123-45-6789",
+      "has_middle_name": true,
+      "address": {
+        "street": "123 Random St",
+        "secondary": "",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10000",
+        "country": "USA"
+      }
+    }
+    ```
+    The only required fields when creating an `employee` are the `first_name`, `last_name`, and `address` (except for secondary). Similar to the `employer` object, you may use the API to populate `custom_attributes` which must be created through the dashboard ahead of time.
+
+    You should get a response that looks like this:
+
+    ```json
+    {
+        "id": "ee_oYhyCTBJJABaQUr5FNir8", // yours will be different, except for the ee_
+        "first_name": "Ryan",
+        "middle_name": "Micah",
+        "last_name": "Jackson",
+        "email": "ryan@example.com",
+        "phone": "1234567890",
+        "date_of_birth": "1990-01-01",
+        "social_security_number": "123-45-6789",
+        "has_middle_name": true,
+        "address": {
+            "street": "123 Random St",
+            "secondary": null,
+            "city": "New York",
+            "state": "NY",
+            "zip": "10000",
+            "country": "USA"
+        },
+        "custom_attributes": {},
+        "created_at": "2024-05-14T21:46:48.861Z", // yours will be different
+        "updated_at": "2024-05-14T21:46:48.861Z" //  yours will be different
+    }
+    ```
+
+    Save the `id`, you'll need it for the next step!
+  </Step>
+  <Step title="Create a Placement" icon="arrow-right-from-arc" iconType="solid">
+    Now that we have created our `employee` and `employer` objects, we can place Ryan with his new `employer`. `Placements` is how Onboarded knows what `employer`, `job`, and `client` an `employee` should be associated with. Further, creating a `placement` triggers the policy engine. When the policy engine is triggered, it looks at all the associated entity data and determines what tasks are applicable for this `placement`.
+
+    To create the `placement` we'll use the below payloadd with [POST /v1/Placements](/api-reference/placements/create-an-placement)
+
+    ```json
+    {
+      "employee_id": " ", // use the ID from the "Create an Employee" step earlier
+      "employer_id": " " // use the ID from the "Create an Employer" step earlier
+      "create_tasks": true
+    }
+    ```
+    The only required field when creating a `placement` is the `employee_id`, all other fields are optional. However, it's not often that you'll have a task that is relevant across the entire account. Therefore, it's always recommended that you associate an `employee` with at least an `employer` object. 
+
+    You should get a response that looks like this:
+
+    ```json
+    {
+        "id": "pla_f99Q8OHWoV3b1oFFrupHF", // this will be differnet, other than the pla_
+        "employee_id": "ee_", // this should be the ID you use for employee_id
+        "employer_id": "er_", // this should be the ID you use for employer_id
+        "created_at": "2024-05-14T23:27:37.480Z", // this will be different 
+        "suggested_tasks": [
+            {
+                "form_id": "form_01hvsp3rp6f0paqn0wq2cd61dh"
+            }
+        ]
+    }
+    ```
+
+    You may get back more `forms` depending on how many were created during your account set up. `form_id` can be used to manually create tasks but when `create_tasks` is set to `true` they will automatically be created instead. 
+  </Step>
+  <Step title="Create an Onboarding URL" icon="link" iconType="solid">
+    Once the `placement` has been created, we can generate an onboarding URL for the employee! The onboarding URL is our hosted-experience whereby the employee goes through each task field-by-field. This experience may include an e-signature step, which will capture the users's IP address, signed timestamp, and signature. 
+
+    To create the onboarding URL we'll use the following GET request [/v1/employees/:id/onboarding](/api-reference/employees/get-an-employee-onboarding-url), where `:id` is the `ID` from the `employee` object we created earlier.
+
+    This will generate an employee-facing onboarding URL. You can also use query parameters to create an employer-facing onboarding URL which will contain tasks assigned to the employer. This is particularly relevant for forms like the I-9 which require an employer to review the uploaded documents to establish work authorization. 
+
+    You should get a response that looks like this:
+
+    ```json
+    {
+        "url": "https://app.onboarded.com/onboarding/auth?token=<token>" // the token will be provided in the response
+    }
+    ```
+
+  🎉 **Congratulations, you've created an onboarding URL!** This URL can be sent to Ryan and will automatically collect all of the data they provide. Any tasks that generate a PDF, such as the W-4, are [also accessible](/api-reference/tasks/get-a-task-pdf) once completed. 
   </Step>
 </Steps>

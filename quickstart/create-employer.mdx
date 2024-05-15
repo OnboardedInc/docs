@@ -1,0 +1,53 @@
+---
+title: "Create Employer"
+---
+
+Because this is ACME Inc.'s first employee, we need to create an `employer` object in Onboarded to create the `employee` object under. You can create the `employer` at any time. An `employer` can exist without any `employees`. 
+
+To create the `employer` we'll use the below payload with [POST /v1/employers](/api-reference/employers). 
+
+```json 
+{
+    "name": "ACME Inc.",
+    "ein": "123456789",
+    "phone": "123-456-7890",
+    "entity_structure": "corporation",
+    "address": {
+        "street": "123 Widget St",
+        "secondary": "Suite 123",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10000",
+        "country": "USA"
+    }
+}
+```
+The only required fields to create an employer are the `name`, `ein`, and `address`. You may also use the API to populate `custom_attributes` which must be created through the dashboard ahead of time.
+
+You should get back a response that looks like this:
+
+```json
+{
+    "id": "er_HVf2NFdLDi1Bin3LgUmZA", // The er_ will be the same, but the string will differ
+    "name": "ACME Inc.",
+    "ein": "123456789",
+    "dba_name": null,
+    "phone": "123-456-7890",
+    "employee_count": null,
+    "entity_structure": "corporation",
+    "naics_code": null,
+    "address": {
+        "street": "123 Widget St",
+        "secondary": "Suite 123",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10003",
+        "country": "USA"
+    },
+    "custom_attributes": {},
+    "created_at": "2023-11-07T05:31:56Z",
+    "updated_at": "2023-11-07T05:31:56Z"
+}
+```
+
+Next, let's create the employee. 
