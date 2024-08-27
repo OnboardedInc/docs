@@ -16,6 +16,7 @@
       "to": "#78B9FF"
     }
   },
+  "theme": "prism",
   "topbarLinks": [
     {
       "name": "Support",
@@ -64,8 +65,8 @@
     "linkedin": "https://www.linkedin.com/company/mintsearch"
   },
   "feedback": {
-    "suggestEdit": true,
-    "raiseIssue": true
+    "suggestEdit": false,
+    "raiseIssue": false
   }
 }
 
