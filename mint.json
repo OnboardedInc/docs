@@ -58,10 +58,6 @@
         "environment",
         "quickstart"
       ]
-    }, 
-    {
-      "group": "API Reference",
-      "pages": ["api-reference/api_overview"]
     }
   ],
   "footerSocials": {
