@@ -1,0 +1,154 @@
+---
+title: "Objects"
+---
+
+
+Overview
+Every organization operates differently. From the way that they administer onboarding all the way to how they structure their business. Onboarded provides several objects that enable organizations to customize their accounts to suit their needs. 
+
+This guide will answer the following questions:
+What objects exist and how are they defined?
+How do these objects work in conjunction with one another?
+What should I consider when building my account and/or integrating with the API?
+But first, what are placements?
+We’ll cover placements in greater detail as we work through all of the previous questions. However, it’s important to understand what a placement is, and how it works, to have context when reading about all the other objects. 
+
+Placement Creation Workflow
+
+
+What’s happening?
+When a placement object is created it can be provided an employee, employer, client, and job object ID. Only the employee ID is required.
+When the placement object is created, it will return the required tasks that must be completed by the employee and employer representative(s) based on the active policies in the account. 
+Policies define when a task should be returned when creating a placement. 
+Tasks can range from government required documents (I-9, W4, etc) to organization-specific documents (Employee handbook, Code of Conduct, etc).
+These tasks are assigned to an employee to complete. 
+Object Definitions and Interactivity
+
+Accounts
+An account is the highest level of organization available to users. An account is where you will be creating all of the other objects. Objects created in one account are not available for use in another account. Further, the account is what is tied to the API key(s), webhook(s), branding, and more.
+Company Organization Objects
+Employers
+An employer object represents a single employer. The employer object is unique from the account and client object in several ways. 
+
+Features
+Accounts
+Employers
+Clients
+Namable
+✅
+✅
+✅
+Plural
+❌
+✅
+✅
+EIN Field
+✅
+✅
+❌
+DBA Field
+✅
+✅
+❌
+Address Field
+✅
+✅
+❌
+Theme Customization
+✅
+✅
+❌
+Used in Placements*
+❌
+✅
+✅
+Custom Properties
+❌
+✅
+❌
+User Management
+✅
+❌
+❌
+API Keys & Webhooks
+✅
+❌
+❌
+
+
+As you can see, the employer object is far more robust than the client object and is dissimilar from the account object in several notable ways. The employer object can be used to override the account level theming and is a primary input for placement objects. 
+Clients
+These are primarily used in staffing use cases where an employee is hired by an employer (the staffing agency) but is working for another company, often referred to as a client. Since the employer is actually as the employer obligations to the employee, the client object doesn’t need to house as much detail as the employer object.
+
+Therefore, client objects are mostly an organizational tool for accounts and are a potential input when creating placement objects. 
+Jobs
+At Onboarded, the jobs object is used to represent a single job type. For example, a job could be a Software Engineer, Senior Software Engineer, Forklift Operator, Welder, etc. It does necessarily represent a single job listing or job fulfillment. It’s important to understand that the job object is highly flexible and could be used however makes the most sense for you. 
+
+ ⚠️ This object has an address field which is useful when building policies. Job location is often used to define the state-based requirements for a worker, not employer location. For example, an employee hired into a job in California will need to complete CA employment requirements to work in that state. If using Onboarded’s Compliance Library and default policies, surfacing these requirements via the placement object will use the job object address.  
+
+As an example, imagine you’re frequently hiring truck drivers for your package logistics company. The onboarding requirements for someone who is hired into a truck driver role at the company seldom change and are relevant to anyone hired into a truck driver listing. Meaning “Truck Driver” could be a job object in Onboarded and one job object will be used for all hires in this role. Regardless of the frequency, jobs should be used to group together onboarding requirements for similar roles and in similar locations. 
+Employees
+This object falls into its own category because it falls outside of company organization, but is also not a part of task orchestration. The employee's object is where all other objects find their meaning. All other objects are meaningless without the employee object. 
+
+An employee represents an individual person. Onboarded does not perform any duplicate employee checks. Therefore, it is possible to have multiple employee objects that are referencing the same person.This will be covered in greater detail in the “Best Practices” section. For now, just know that there could be many employee objects related to a single person. 
+
+Employee Object in Onboarded Dashboard
+
+
+
+There are several notable aspects of the employee object which can be seen above:
+Personal Information: The employee object has several default fields, including their name, phone number, date of birth, and address. These fields are referenced to in several forms in order to pre-populate these fields in those forms. For example, if we already collected an address for the employee when they completed the W-4 task, we will pre-fill their address when they go to fill the I-9. This pre-filled information counts towards our overall and individual task progress. 
+Multiple Placements: An employee can have multiple placement objects it’s associated with. The labels included in each placement show what employee, client, and job (respectively) were provided when creating the placement. 
+Tasks: Employees are assigned tasks which they have to complete. 
+Create Link: Onboarding links are a critical component of the Onboarded platform. Most of the time, onboarding links will be associated with an employee, but they could also be associated with an individual task. 
+Custom Attributes: Employee objects, like employer and placement objects, can have custom attributes which can be referenced to in forms. 
+Orchestration Objects
+Forms
+To better understand forms, let’s look at a couple of examples first:
+
+Government-required Document (W-4): Form W-4 is a required document which employees must fill out when they start a job. A similar form, called a 1099, must be filled out in certain circumstances when hiring a contractor. The W-4 has several fields that must be filled in, most notably, how much of your paycheck should be withheld to pay your federal taxes. Employees must also sign this document. Any content, including fields and signature boxes, would comprise a form. Forms can be set up to reference dynamic data such as employee first name, employer name, and others.
+Employer-required Document (Employee Handbook): When starting a new job, most companies require their employees to at least acknowledge that they have received and read through the company’s employee handbook. This handbook could include a code of conduct, overtime policy, or anything else the employer desires to include. This content is usually served within a PDF. A form could show the content, embed any media, or link to the PDF and collect a eSignature from the employee. 
+
+Essentially, forms are where it’s determined what information should be collected from and displayed to the employee and employer representative. Forms can have employee steps which are filled out by the employee, and employer steps which are completed by an employer representative, like a recruiter or HR. 
+
+Many compliance and government related forms are already created and available to accounts via the Onboarded-maintained Compliance Library. Any other forms needed will be built by the Onboarded Operations and Compliance team and made accessible to the account for assignment.
+
+Some common employer-required forms include:
+Employee Training Media (such as YouTube, Vimeo, etc)
+Quizzes (for sexual harassment training, workplace safety, etc)
+Code of Conduct
+Direct Deposit Authorization
+Workplace Policies
+WOTC Enrollment
+Tasks
+Tasks are tied to forms in that they are the shell within which forms are assigned to employees. The task object is what will track the completion of form fields and subtasks. As an example, if you assign the W-4 form to an employee, they will now have a task to complete the W-4 form. Any progress they make or data they enter will be associated with that individual task. 
+
+Task objects can be created via the API and assigned to an employee without the use of a placement object. This allows you to bypass the policy engine and assign tasks ad hoc. 
+
+There is also a concept of “sub-tasks” which are individual pages within a form. When a user is completing a task, anytime they select “Save & Next” they are moving from one subtask to another, if another subtask exists. If another subtask does not exist, the user will move to the next task/form or if no more tasks exist, they will have completed all  of their assigned onboarding tasks. 
+
+You will often hear tasks and forms used interchangeably. While they differ in many ways, because all tasks are associated with exactly one form, it’s reasonable to say you’re assigning forms to an employee to complete, when you’re assigning a task. Just know that a form will not contain data filled in by the employee or employer representative. Only the tasks object will contain this information. 
+Placements
+All of these objects come together in the placement object. The placement object can be thought of as a time-in-place joining object which generates tasks based on the provided information. For example, if only the employer and employee object are provided when creating a placement, then the placement object will only return the required tasks that match policies relevant for that employer and employee (based on information like address, name, etc). 
+
+If at a later point, you want to provide a client and job for that same employee, the placement will return all the relevant tasks for that client and job. If there are overlapping tasks generated by previous placements or relevant to many of the provided inputs, Onboarded will automatically deduplicate these tasks and only create a single task for the employee, to reduce unnecessary work. You can see an illustration of this below. 
+
+
+
+Best Practices
+When building with Onboarded, there are several recommended ways to use the above objects.
+Full Orchestration (Preferred)
+In this implementation path, you’re accessing the full value that Onboarded has to offer. Namely, you’re providing Onboarded with all of the company organization objects and using the placement object to generate tasks for employees. 
+
+Company Organizational Entities:
+Employers: Created via the API and populated from data from integrating system
+Information Provided: Name, Address, EIN, DBA (if applicable), Phone, NAICS Code, and any Custom Attributes. 
+Clients: Created via the API and populated with data from the integrating system
+Information Provided: Name, Address
+Jobs: Created via the API and populated with data from the integrating system
+Information Provided: Name, Address
+⚠️Important: The job address will be used to determine what state-specific forms are required in most cases. If a job has the same name, but is going to be in a different state, you’ll want to create a separate job for those locations. 
+
+All of the above objects should be created as the information is available. During initialization of the account, you may want to add existing employers, clients, and jobs. However, you can also choose to create them in Onboarded either when they are created in the ATS or when a placement is being created for those objects for the first time.
+
+As an example, you could create the client object in Onboarded when the client object in the integrating system is created. The benefits being that you can have that client ID from Onboarded ready to go for any future placements. Alternatively, you could create the client object when a customer goes to create their first placement. In which case, you’d send a request to Onboarded to create the client object, then use the returned ID immediately in the placement object and also associate it with the client object in the integrating system. 
