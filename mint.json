@@ -42,6 +42,11 @@
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://www.onboarded.com/blog"
+    },
+    {
+      "name": "Book Time",
+      "icon": "calendar",
+      "url": "https://calendly.com/justin-onboarded/30min"
     }
 
   ],
