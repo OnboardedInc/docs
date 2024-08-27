@@ -38,11 +38,6 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://www.onboarded.com/blog"
