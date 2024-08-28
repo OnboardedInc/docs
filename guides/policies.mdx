@@ -1,0 +1,73 @@
+---
+title: "Using Policies"
+description: "What policies are and how to use them"
+---
+
+## Overview
+Onboarded believes that you should be able to dynamically control what tasks are assigned to employees, based on the data you’re providing to us. Do you want to assign a particular employee policy based on the job the employee will be working? Or perhaps there are tasks that are unique to a certain client? In both of these scenarios, policies provide a way to include the tasks employees need. Out with the old, and in with the new, goodbye packages and form-by-form rules! 
+
+## What are policies?
+Policies are the mechanism by which Onboarded determines what tasks should be assigned to an employee. This ranges from our Compliance Library materials, all the way to any custom forms that may be added to the account. Policies contain rules that are built to work with other objects within the Onboarded ecosystem such as employer, employee, and placement (among others). They also contain forms which are added to the policy from the forms available on the account. 
+
+After a placement is created, Onboarded will look through all of the policies and based on the rules in those policies, determine which ones match. When a rule, or many rules, match the placement context the forms in those policies will comprise the required tasks for that placement. Any required tasks that are duplicitous will be automatically handled and only one will be assigned to the employee. 
+
+## How would I use a policy?
+Let’s set up a hypothetical scenario whereby you’re setting up the account for ACME Medical, a healthcare staffing company. ACME Medical services multiple clients. 
+
+In this scenario, we would start by utilizing the Onboarded compliance library to add any policies and forms that you need to maintain compliance for a given locale. This would generate the required locale policies. Then we’d want to ensure that employer-specific forms are included when we place people. This would probably look like having a rule called “Employer Forms” with a rule that says:
+
+#### ACME Medical Policy:
+
+**Rule:**
+```EditorConfig
+ALL (
+	employer.name == "ACME Medical"
+}
+```
+**Forms:**
+- Direct Deposit Authorization
+- ACME Medical Employment Agreement
+
+Then, we would set up a policy for each client to ensure that only the documents for the relevant client get returned when the placement is created. That would look like this:
+
+#### Client A Policy: 
+**Rule:**
+```EditorConfig
+ALL (
+	client.name == "Client A"
+}
+```
+**Forms:**
+- Client A Employee Handbook
+- Client A Safety Training Video
+- Client A Code of Conduct
+
+#### Client B Policy: 
+**Rule:**
+```EditorConfig
+ALL (
+	client.name == "Client B"
+}
+```
+**Forms:**
+- Client B Employee Handbook
+- Client B Uniform Policy
+
+ACME Medical offers a product called “CA Health Practitioner Covered” which provides a suite of forms that have been built in Onboarded such that they can be white-labeled and appear as though they were created by that client for a particular job type. In this case, ACME Medical will only need one policy to cover every client who uses this product. It would look like this:
+
+#### CA Health Practitioner Covered Policy: 
+**Rule:**
+```EditorConfig
+ALL (
+	  client.name in ["Client C", "Client D", "Client E"]
+      employee.address.state=="CA"
+      job.name == "Nurse"
+}
+```
+**Forms:
+- CA Nurse Certification
+- CA Healthy Workers Certification
+- Employee Handbook
+- Overtime Policy
+
+*these are fictional forms and used just as an example of the functionality. 
