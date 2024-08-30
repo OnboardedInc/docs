@@ -33,8 +33,12 @@
   "tabs": [
     {
       "name": "API Reference",
-      "openapi": "https://staging.onboarded.com/api/v1/openapi.json",
+      "openapi": "https://app.onboarded.com/api/v1/openapi.json",
       "url": "api-reference"
+    },
+    {
+      "name": "Release Notes",
+      "url": "release-notes"
     }
   ],
   "anchors": [
@@ -47,8 +51,7 @@
       "name": "Book Time",
       "icon": "calendar",
       "url": "https://calendly.com/justin-onboarded/30min"
-    }
-
+    }  
   ],
   "navigation": [
     {
@@ -58,6 +61,18 @@
         "environment",
         "quickstart"
       ]
+    },
+    {
+      "group": "Release Notes",
+      "pages": [
+            {
+              "group": "2024 - August",
+              "pages": [
+                "release-notes/08-24/08-30-24"
+              ]
+          },
+          "release-notes/subscribe"
+        ]
     }
   ],
   "footerSocials": {
