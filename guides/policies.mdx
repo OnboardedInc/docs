@@ -16,9 +16,13 @@ After a placement is created, Onboarded will look through all of the policies an
 </Frame>
 
 ## How would I use a policy? 
+<Info>The below forms are fictional. They don't reflect actual state or employer requirements.</Info>
+
 Let’s set up a hypothetical scenario whereby you’re setting up the account for ACME Medical, a healthcare staffing company. ACME Medical services multiple clients. 
 
-In this scenario, we would start by utilizing the Onboarded compliance library to add any policies and forms that you need to maintain compliance for a given locale. This would generate the required locale policies. Then we’d want to ensure that employer-specific forms are included when we place people. This would probably look like having a rule called “Employer Forms” with a rule that says:
+In this scenario, we would start by utilizing the Onboarded compliance library to add any policies and forms that you need to maintain compliance for a given locale. This would generate the required locale policies. Then we’d want to ensure that employer-specific forms are included when we place people. 
+
+This could look like having a rule called “Employer Forms” with a rule that says:
 
 #### ACME Medical Policy:
 
@@ -68,10 +72,10 @@ ALL (
       job.name == "Nurse"
 }
 ```
-**Forms:
+**Forms:**
 - CA Nurse Certification
 - CA Healthy Workers Certification
 - Employee Handbook
 - Overtime Policy
 
-*these are fictional forms and used just as an example of the functionality. 
+
