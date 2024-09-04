@@ -63,6 +63,12 @@
       ]
     },
     {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/webhooks"
+      ]
+    },
+    {
       "group": "Release Notes",
       "pages": [
             {
