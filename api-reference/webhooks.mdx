@@ -1,0 +1,38 @@
+---
+title: 'Webhooks'
+---
+
+## Webhooks
+Webhooks are a way to get more real-time notifications from the API. When an event happens in the system, we'll send a POST request to the URL you specify. You can configure webhooks in the Onboarded Dashboard.
+
+### Security
+The token from the Onboarded Dashboard Webhook UI is used to generate a signature for each webhook request. This signature is a hex-encoded hmac hash using webhook request body. The signature is included in the webhook request header property webhook-signature. To validate a webhook came from Onboarded and has not been tampered with, you need to use the token and the webhook payload you received to generate a sha256 digest and compare it against the value in the header. If it matches, the request is valid and has not been tampered with.
+
+### Supported Events
+
+
+| Employee         | Employer         | Client         | Job         | Task         | Placement         |
+|------------------|------------------|----------------|-------------|--------------|-------------------|
+| employee.created | employer.created | client.created | job.created | task.created | placement.created |
+| employee.updated | employer.updated | client.updated | job.updated | task.updated | placement.updated |
+| employee.deleted | employer.deleted | client.deleted | job.deleted | task.deleted | placement.deleted |
+
+
+### Example Payload
+```json
+{
+  "id": "event_1234",
+  "type": "task.updated",
+  "created_at": "2021-01-01T00:00:00Z",
+  "data": {
+    ...serialized task...
+  }
+}
+```
+### Example Headers
+```json
+"webhook-signature": "ABCDEF123456...",
+"webhook-version": "v1",
+"webhook-event": "task.updated",
+"webhook-id": "event_1234",
+```
