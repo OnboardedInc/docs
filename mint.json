@@ -37,6 +37,10 @@
       "url": "api-reference"
     },
     {
+      "name": "Guides",
+      "url": "guides"
+    },
+    {
       "name": "Release Notes",
       "url": "release-notes"
     }
@@ -66,6 +70,12 @@
       "group": "API Reference",
       "pages": [
         "api-reference/webhooks"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/policies"
       ]
     },
     {
