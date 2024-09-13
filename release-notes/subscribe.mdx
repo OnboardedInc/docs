@@ -2,20 +2,30 @@
 title: "➡️ Subscribe to Updates"
 description: "Recieve an email whenever we have new release notes"
 ---
-
-<div style={{ textAlign: 'center' }} className="sender-form-field" data-sender-form-id="m0h64v94bqxrm0z2fdd"></div>
+<div id="hubspot-form"></div>
 
 {(() => {
-  (function (s, e, n, d, er) {
-    s['Sender'] = er;
-    s[er] = s[er] || function () {
-      (s[er].q = s[er].q || []).push(arguments)
-    }, s[er].l = 1 * new Date();
-    var a = e.createElement(n),
-        m = e.getElementsByTagName(n)[0];
-    a.async = 1;
-    a.src = d;
-    m.parentNode.insertBefore(a, m)
-  })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
-  sender('f8efc8d2178700');
+  // Wait until the DOM is fully loaded
+  if (typeof window !== "undefined") {
+    (function() {
+      var script = document.createElement('script');
+      script.src = '//js.hsforms.net/forms/embed/v2.js';
+      script.charset = 'utf-8';
+      script.type = 'text/javascript';
+
+      // Ensure form creation only happens after the script has been loaded
+      script.onload = function() {
+        if (window.hbspt) {
+          hbspt.forms.create({
+            region: "na1",
+            portalId: "24337717",
+            formId: "09191e60-1acb-4122-835f-bddf5b97f326",
+            target: '#hubspot-form' // Ensure it targets the correct div
+          });
+        }
+      };
+
+      document.body.appendChild(script); // Append the script to load it
+    })();
+  }
 })()}
