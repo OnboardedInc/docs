@@ -6,16 +6,37 @@ description: "What's New This Week"
 <Tabs>
   <Tab title="⚙️ Product Updates">
     ## 🎉 New Features
-    ### 🏷️ Tags for Policies & Forms
-    You can now tag policies and forms within the dashboard. To use tags you must log into the account settings whereby you can add tags for use across the account. You can also view form tags within the API through the <a href="https://docs.onboarded.com/api-reference/forms/list-all-forms" target="_blank">Forms API.</a> 
+    ### 👤 Invite and Manage Users
+    <Frame caption="User Invite Flow">
+      <img src="https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/9-27-24-Release-Notes.gif"/>
+    </Frame>
+
+    You're now able to invite people to create an Onboarded users within accounts. You can see any pending invites and delete invites if necessary. Further, you can now remove users from an account if needed. This all can be accessed within the Settings > User Management tab within the account. 
+
+
+    ### 🏷️ Tags for Policies
+    You can now tag policies within the dashboard. To use tags you must log into the account settings whereby you can add tags for use across the account. 
+    
+    ### 🏷️ Forms Tags in the API
+    You can also view form tags within the API within the [Placements](/api-reference/placements/list-all-placements), [Tasks](/api-reference/tasks/list-all-tasks), and [Forms APIs](/api-reference/forms/list-all-forms). 
 
     **Example Response:**
-    ```json
-    "tags": [
-      {
-        "name": "<string>"
-      }
-    ```
+<CodeGroup>
+      ```json Forms & Tasks API
+      "tags": [
+        {
+          "name": "<string>"
+        }
+      ```
+
+      ```json Placements API
+      "form_tags": [
+        {
+          "name": "<string>"
+        }
+      ]
+      ```
+</CodeGroup>
 
   </Tab>
 </Tabs>
