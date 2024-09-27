@@ -55,12 +55,7 @@
       "name": "Book Time",
       "icon": "calendar",
       "url": "https://calendly.com/justin-onboarded/30min"
-    },
-    {
-      "name": "Release Notes",
-      "icon": "calendar",
-      "url": "release-notes/subscribe"
-    }  
+    } 
   ],
   "navigation": [
     {
@@ -80,7 +75,8 @@
     {
       "group": "Guides",
       "pages": [
-        "guides/policies"
+        "guides/policies",
+        "guides/objects"
       ]
     },
     {
@@ -89,6 +85,7 @@
           {
               "group": "2024 - September",
               "pages": [
+                "release-notes/09-24/09-27-24",
                 "release-notes/09-24/09-13-24"
               ]
           },
