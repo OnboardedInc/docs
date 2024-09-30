@@ -29,7 +29,6 @@ When the placement object is created, it will return the required tasks that mus
 
 ### Accounts
 An account is the highest level of organization available to users. An account is where you will be creating all of the other objects. Objects created in one account are not available for use in another account. Further, the account is what is tied to the API key(s), webhook(s), branding, and more.
-Company Organization Objects
 
 ### Employers
 An employer object represents a single employer. The employer object is unique from the account and client object in several ways. 
@@ -63,21 +62,16 @@ At Onboarded, the jobs object is used to represent a single job type. For exampl
 </Warning>
 
 As an example, imagine you’re frequently hiring truck drivers for your package logistics company. The onboarding requirements for someone who is hired into a truck driver role at the company seldom change and are relevant to anyone hired into a truck driver listing. Meaning “Truck Driver” could be a job object in Onboarded and one job object will be used for all hires in this role. Regardless of the frequency, jobs should be used to group together onboarding requirements for similar roles and in similar locations. 
-Employees
-This object falls into its own category because it falls outside of company organization, but is also not a part of task orchestration. The employee's object is where all other objects find their meaning. All other objects are meaningless without the employee object. 
-
-An employee represents an individual person. Onboarded does not perform any duplicate employee checks. Therefore, it is possible to have multiple employee objects that are referencing the same person.This will be covered in greater detail in the “Best Practices” section. For now, just know that there could be many employee objects related to a single person. 
 
 ### Employee
-
-
+An  employee represents an individual person. Onboarded does not perform any duplicate employee checks. Therefore, it is possible to have multiple employee objects that are referencing the same person.
 
 There are several notable aspects of the employee object which can be seen above:
-Personal Information: The employee object has several default fields, including their name, phone number, date of birth, and address. These fields are referenced to in several forms in order to pre-populate these fields in those forms. For example, if we already collected an address for the employee when they completed the W-4 task, we will pre-fill their address when they go to fill the I-9. This pre-filled information counts towards our overall and individual task progress. 
-Multiple Placements: An employee can have multiple placement objects it’s associated with. The labels included in each placement show what employee, client, and job (respectively) were provided when creating the placement. 
-Tasks: Employees are assigned tasks which they have to complete. 
-Create Link: Onboarding links are a critical component of the Onboarded platform. Most of the time, onboarding links will be associated with an employee, but they could also be associated with an individual task. 
-Custom Attributes: Employee objects, like employer and placement objects, can have custom attributes which can be referenced to in forms. 
+- **Personal Information:** The employee object has several default fields, including their name, phone number, date of birth, and address. These fields are referenced to in several forms in order to pre-populate these fields in those forms. For example, if we already collected an address for the employee when they completed the W-4 task, we will pre-fill their address when they go to fill the I-9. This pre-filled information counts towards our overall and individual task progress. 
+- **Multiple Placements:** An employee can have multiple placement objects it’s associated with. The labels included in each placement show what employee, client, and job (respectively) were provided when creating the placement. 
+- **Tasks:** Employees are assigned tasks which they have to complete. 
+- **Create Link:** Onboarding links are a critical component of the Onboarded platform. Most of the time, onboarding links will be associated with an employee, but they could also be associated with an individual task. 
+- **Custom Attributes:** Employee objects, like employer and placement objects, can have custom attributes which can be referenced to in forms. 
 
 
 ### Forms
