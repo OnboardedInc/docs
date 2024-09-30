@@ -74,25 +74,6 @@
         "guides/policies",
         "guides/objects"
       ]
-    },
-    {
-      "group": "Release Notes",
-      "pages": [
-          {
-              "group": "2024 - September",
-              "pages": [
-                "release-notes/09-24/09-27-24",
-                "release-notes/09-24/09-13-24"
-              ]
-          },
-          {
-              "group": "2024 - August",
-              "pages": [
-                "release-notes/08-24/08-30-24"
-              ]
-          },
-          "release-notes/subscribe"
-        ]
     }
   ],
   "footerSocials": {
