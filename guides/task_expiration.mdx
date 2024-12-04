@@ -1,0 +1,36 @@
+---
+title: "Task Expiration"
+description: "How to set expiration date on tasks"
+---
+
+## Overview 
+
+Tasks can dynamically expire based on date/time information provided by candidates when they submit the form. This can be helpful for employers to, for example, require candidates to re-verify their eligibility to work before their temporary work authorization expires. This guide explains how to create task expiration rules to dynamically expire tasks based on dates provided by candidates.
+
+## How do I setup task expiration rule?
+
+Start by visiting the details view of the form where you want to setup expiration rules. Click on the "Expiration Rules" button to bring up the expiration rule management panel.
+
+![Expiration Rule Button](/images/taskExpirationGuide/expirationRuleBtn.png)
+
+The panel shows existing expiration rules for the form. To add a new expiration rule, select a date field from the "New Rule" dropdown - this list shows all the date fields from the form. The field you select will determine when a task created from this form expires. Click on the "Create Expiration Rule” button to save your selection.
+
+![New Rule](/images/taskExpirationGuide/newRule.png)
+
+In the example above, we see an expiration rule has been created for the field `form.document_b_expiration`. This means whenever a candidate submits the form (I-9, in this case), the completed task will automatically expire based on the date they provide in the field `form.document_b_expiration`.
+
+To delete an expiration rule, click on the trash icon from the rules table.
+
+## What happens when a task expires?
+
+When a task expires, you will receive a task.updated webhook. In the webhook payload, the task status will show as “expired”. Furthermore, if a candidate has yet to complete a replacement task, you will receive placement.updated webhooks for each placement affected by the expired task. In the placement.updated webhook payload, you will see reduced completion percentage. This indicates that the candidate no longer meets all compliance requirements under the placement.
+
+Once a task has expired, it can no longer be edited. Employers should create a new task (`POST /api/v1/tasks`) and send an onboarding link to the candidate, so that they may complete the task by submitting the form again.
+
+## Special Considerations
+
+When a task expiration rule is created, it will only apply to tasks completed from that moment onwards. Tasks that are completed before an expiration rule is created will not be affected by the expiration rule.
+
+When a task expiration rule is deleted, any task that was completed while the rule was present, will continue to expire based on the candidate's field input. In other words, deleting a task expiration rule will not alter the expiration behavior for tasks that have already been completed.
+
+If these behaviors do not support your use case well, please let us know.
