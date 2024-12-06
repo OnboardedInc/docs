@@ -7,29 +7,41 @@ description: "Understand task lifecycle and how it affects employee experience"
 
 A task represents the need for an employee to fill out a form in order to meet the compliance requirements of one or more placements. When a task is first created, its status shows "Requires Action". Most forms only need to be filled out by employees, and for tasks representing those forms, you will see "Employee" under the task "Next Action". This indicates that the employee needs to take action to complete the task.
 
-![Task Status & Next Action](/images/taskLifeCycleGuide/taskViewStatusNextAction.png)
+<Frame>
+  ![Task Status & Next Action](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/taskViewStatusNextAction.png)
+</Frame>
 
 Once tasks for an employee are created, employer usually sends an onboarding link to the employee so that they can start filling out the forms. If a form has sections that need to be completed by the employer, the task representing that form will see its next action transition to "Employer" once all the preceding employee sections are completed. Once employer completes their sections, the task's next action will transition back to "Employee" if there are remaining employee sections. Once all pages of the form is completed, the task status will transition to "Completed", and next action will become empty.
 
-![Task Completed](/images/taskLifeCycleGuide/taskViewCompleted.png)
+<Frame>
+  ![Task Completed](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/taskViewCompleted.png)
+</Frame>
 
 Once a task is completed, employees can no longer make edits from the onboarding link. They can still view their submission. However, the form becomes read-only (as shown below).
 
-![Candidate View - Task Completed](/images/taskLifecycleGuide/candidateViewCompleted.png)
+<Frame>
+  ![Candidate View - Task Completed](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/candidateViewCompleted.png)
+</Frame>
 
 If an employee notices a mistake in their submission, they will have to contact you directly (*please let us know if you'd like Onboarded to offer a feature that allows employees to request changes within our platform*). To allow the employee to make edits to a completed task, click on the "Request Change" button from the task view (shown below).
 
-![Task View - Request Change](/images/taskLifecycleGuide/taskViewRequestChange.png)
+<Frame>
+  ![Task View - Request Change](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/taskViewRequestChange.png)
+</Frame>
 
 Changes can only be requested against tasks in completed status. Once change is requested, the task status transitions back to "Requires Action", and the "Next Action" is set to the party responsible for filling out the first section of the form (which is usually employee). Now the employee can use their previous onboarding link and make edits to their previous submission.
 
-![Candidate View - Change Requested](/images/taskLifecycleGuide/candidateViewChangeRequested.png)
+<Frame>
+  ![Candidate View - Change Requested](/https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/candidateViewChangeRequested.png)
+</Frame>
 
 ## API Integration
 
 When integrating with Onboarded Task APIs, the Task API resource contains `status` and `next_action` fields. The `status` field follows the state machine below.
 
-![Task State Machine](/images/taskLifecycleGuide/taskStateMachine.png)
+<Frame>
+  ![Task State Machine](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/taskStateMachine.png)
+</Frame>
 
 The `next_action` field returns a nested object in the following format:
 ```

@@ -11,11 +11,15 @@ Tasks can dynamically expire based on date/time information provided by candidat
 
 Start by visiting the details view of the form where you want to setup expiration rules. Click on the "Expiration Rules" button to bring up the expiration rule management panel.
 
-![Expiration Rule Button](/images/taskExpirationGuide/expirationRuleBtn.png)
+<Frame>
+    ![Expiration Rule Button](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/expirationRuleBtn.png)
+</Frame>
 
 The panel shows existing expiration rules for the form. To add a new expiration rule, select a date field from the "New Rule" dropdown - this list shows all the date fields from the form. The field you select will determine when a task created from this form expires. Click on the "Create Expiration Rule” button to save your selection.
 
-![New Rule](/images/taskExpirationGuide/newRule.png)
+<Frame>
+    ![New Rule](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/newRule.png)
+</Frame>
 
 In the example above, we see an expiration rule has been created for the field `form.document_b_expiration`. This means whenever a candidate submits the form (I-9, in this case), the completed task will automatically expire based on the date they provide in the field `form.document_b_expiration`.
 
