@@ -29,7 +29,9 @@ If an employee notices a mistake in their submission, they will have to contact 
   ![Task View - Request Change](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/taskViewRequestChange.png)
 </Frame>
 
-Changes can only be requested against tasks in completed status. Once change is requested, the task status transitions back to "Requires Action", and the "Next Action" is set to the party responsible for filling out the first section of the form (which is usually employee). Now the employee can use their previous onboarding link and make edits to their previous submission.
+You can also request changes by calling `POST /api/v1/tasks/{id}/task_change_requests`.&#x20;
+
+Once change is requested, the task status transitions back to "Requires Action", and the "Next Action" is set to the party responsible for filling out the first section of the form (which is usually employee). Now the employee can use their previous onboarding link and make edits to their previous submission.
 
 <Frame>
   ![Candidate View - Change Requested](https://onboarded-assets.s3.us-west-2.amazonaws.com/knowledge-base/dev-portal/candidateViewChangeRequested.png)
@@ -44,6 +46,7 @@ When integrating with Onboarded Task APIs, the Task API resource contains `statu
 </Frame>
 
 The `next_action` field returns a nested object in the following format:
+
 ```
 {
   ... other task properties
